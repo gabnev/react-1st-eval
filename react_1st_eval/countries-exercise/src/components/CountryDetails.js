@@ -2,8 +2,6 @@ import React from "react";
 
 const CountryDetails = (props) => {
 
-  console.log("CountryDetails props: ", props)
-
   return (
     <div className="ui segment">
       <div className="">

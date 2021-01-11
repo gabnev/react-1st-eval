@@ -11,20 +11,25 @@ import CountrySearch from "./CountrySearch";
 const App = () => {
 
   const [countries, setCountries] = useState([]);
-  const [checkedCountries, setCheckedCountries] = useState([]);
+  const [checkedCountries, setCheckedCountries] = useState({});
 
   const receiveRegion = async (selectedRegion) => {
     const response = await restCountries.get(`${selectedRegion}`);
     setCountries(response.data);
   }
 
-  const receiveSelectedCountries = async (selectedCountry) => {    
-    const response = await restSelectedCountries.get(`${selectedCountry}`);
+  const receiveSelectedCountries = async (selectedCountry) => {
 
-    console.log(response.data)
+    if (selectedCountry.length !== 0) {
+      const response = await restSelectedCountries.get(`${selectedCountry}`);
+  
+      setCheckedCountries(response.data);
+    } else {
+      setCheckedCountries({});
+    }
 
-    setCheckedCountries(response.data);
-    console.log(checkedCountries)
+    console.log(checkedCountries);
+    
   }
 
 
