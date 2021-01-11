@@ -2,12 +2,12 @@ import React from "react";
 
 const CountryDetails = (props) => {
 
+  console.log("CountryDetails props: ", props)
+
   return (
     <div className="ui segment">
       <div className="">
-        <img href={props.checkedCountries.flag} alt="flag" />
-        <h2>Name: {props.checkedCountries.name}</h2>
-        <p>{props.test}</p>
+        <h2>{props.checkedCountries.name}</h2>
       </div>
     </div>
   );

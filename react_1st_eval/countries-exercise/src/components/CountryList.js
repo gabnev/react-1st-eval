@@ -4,20 +4,20 @@ import React from "react";
 const CountryList = (props) => {
 
   let checkedCountries = [];
-  
+
   const handleChange = (event) => {
-    
+
     let checked = event.target.checked;
-    
+
     let country = event.target.value;
-    
+
     if (checked) {
       checkedCountries = [...checkedCountries, country];
     } else if (!checked) {
       checkedCountries = checkedCountries.filter((item) => item !== country);
     }
   }
-  
+
   const returnCheckedCountries = () => {
     props.onUserInputChange(checkedCountries);
   }
@@ -42,7 +42,11 @@ const CountryList = (props) => {
   }
 
   return (
-    <div className="" onChange={returnCheckedCountries}>
+    <div
+      id="list"
+      className=""
+      onChange={returnCheckedCountries}
+    >
       {renderList()}
     </div>
   );
