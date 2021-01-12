@@ -12,9 +12,6 @@ const CountryList = (props) => {
     }
   }, [props.selectedRegion])
 
-
-  lala
-
   const renderList = () => {
 
     if (props.countriesList !== null) {
