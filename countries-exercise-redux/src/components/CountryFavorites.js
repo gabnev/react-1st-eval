@@ -1,13 +1,23 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const CountryFavorites = () => {
+const CountryFavorites = (props) => {
+
+  console.log(props.favoriteCountries)
+
   return (
     <div className="ui segment">
       <h3>
-        CountryFavorites
+        Favorites
       </h3>
     </div>
   )
 }
 
-export default CountryFavorites;
+const mapStateToProps = (state) => {
+  return {
+    favoriteCountries: state.favoriteCountries
+  }
+}
+
+export default connect(mapStateToProps)(CountryFavorites);

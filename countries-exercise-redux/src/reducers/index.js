@@ -46,10 +46,20 @@ const countriesListReducer = (state = null, action) => {
   }
 }
 
+const favoriteCountriesReducer = (state = null, action) => {
+  switch(action.type) {
+    case "FAVORITE_COUNTRY":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   countries: countriesReducer,
   selectedCountry: selectedCountryReducer,
   region: regionReducer,
   selectedRegion: selectedRegionReducer,
-  countriesList: countriesListReducer
+  countriesList: countriesListReducer,
+  favoriteCountries: favoriteCountriesReducer
 });

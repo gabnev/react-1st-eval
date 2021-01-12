@@ -26,3 +26,10 @@ export const selectRegion = (region) => {
     payload: region
   };
 };
+
+export const favoriteCountry = (country) => {
+  return {
+    type: "FAVORITE_COUNTRY",
+    payload: country
+  }
+}
