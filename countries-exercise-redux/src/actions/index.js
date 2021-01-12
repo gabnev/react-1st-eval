@@ -33,3 +33,10 @@ export const favoriteCountry = (country) => {
     payload: country
   }
 }
+
+export const defavoriteCountry = (country) => {
+  return {
+    type: "DEFAVORITE_COUNTRY",
+    payload: country
+  }
+}

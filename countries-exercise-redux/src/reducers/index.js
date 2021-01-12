@@ -17,7 +17,7 @@ const regionReducer = () => {
     { id: 4, region: "europe" },
     { id: 5, region: "oceania" },
   ]
-}
+};
 
 const selectedCountryReducer = (state = null, action) => {
   switch (action.type) {
@@ -38,7 +38,7 @@ const selectedRegionReducer = (state = null, action) => {
 }
 
 const countriesListReducer = (state = null, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case "FETCH_COUNTRIES":
       return action.payload;
     default:
@@ -46,10 +46,14 @@ const countriesListReducer = (state = null, action) => {
   }
 }
 
-const favoriteCountriesReducer = (state = null, action) => {
-  switch(action.type) {
+const favorite = [];
+
+const favoriteCountriesReducer = (state = favorite, action) => {
+  switch (action.type) {
     case "FAVORITE_COUNTRY":
-      return action.payload;
+      return [...state, action.payload];
+    case "DEFAVORITE_COUNTRY":
+      return [...state.filter((country) => country !== action.payload)]
     default:
       return state;
   }
