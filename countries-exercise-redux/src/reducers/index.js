@@ -20,7 +20,7 @@ const regionReducer = () => {
 
 const selectedCountryReducer = (state = null, action) => {
   switch (action.type) {
-    case "SELECTED_COUNTRY":
+    case "COUNTRY_SELECTED":
       return action.payload;
     default:
       return state;
