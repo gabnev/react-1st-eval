@@ -27,7 +27,6 @@ const RegionSelect = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return { region: state.region };
 }
 
