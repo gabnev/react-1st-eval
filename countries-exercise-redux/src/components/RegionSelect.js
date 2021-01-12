@@ -19,6 +19,9 @@ const RegionSelect = (props) => {
 
   return (
     <div className="ui segment">
+      <h3>
+        SELECT REGION
+      </h3>
       <select onChange={(event) => props.selectRegion(event.target.value)} >
         {renderForm()}
       </select>
