@@ -1,30 +1,37 @@
 import React from "react";
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+import { selectRegion } from "../actions";
 
 const RegionSelect = (props) => {
 
   const renderForm = () => {
     return props.region.map((option) => {
-
-      console.log("options", option)
-
       return (
-        <option key={option.region} value={option.region}>{option.region}</option>
+        <option
+          key={option.id}
+          value={option.region}
+        >
+          {option.region}
+        </option>
       )
     })
   }
 
   return (
-  <div className="ui segment">
-    <select>
-    {renderForm()}
-    </select>
-  </div>
+    <div className="ui segment">
+      <select onChange={(event) => props.selectRegion(event.target.value)} >
+        {renderForm()}
+      </select>
+    </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  return { region: state.region }
+  console.log(state);
+  return { region: state.region };
 }
 
-export default connect(mapStateToProps)(RegionSelect);
+export default connect(
+  mapStateToProps,
+  { selectRegion: selectRegion }
+)(RegionSelect);

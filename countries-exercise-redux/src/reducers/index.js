@@ -10,11 +10,11 @@ const countriesReducer = () => {
 
 const regionReducer = () => {
   return [
-    { region: "africa"},
-    { region: "americas"},
-    { region: "asia"},
-    { region: "europe"},
-    { region: "oceania"},
+    { id: 1, region: "africa"},
+    { id: 2, region: "americas"},
+    { id: 3, region: "asia"},
+    { id: 4, region: "europe"},
+    { id: 5, region: "oceania"},
   ]
 }
 
@@ -27,8 +27,18 @@ const selectedCountryReducer = (state = null, action) => {
   }  
 }
 
+const selectedRegionReducer = (state = null, action) => {
+  switch (action.type) {
+    case "SELECTED_REGION":
+      return action.payload;
+    default:
+      return state;
+  }  
+}
+
 export default combineReducers({
   countries: countriesReducer,
   selectedCountry: selectedCountryReducer,
-  region: regionReducer
+  region: regionReducer,
+  selectedRegion: selectedRegionReducer
 });

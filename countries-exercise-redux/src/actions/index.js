@@ -4,3 +4,10 @@ export const selectCountry = (country) => {
     payload: country
   };
 };
+
+export const selectRegion = (region) => {
+  return {
+    type: "REGION_SELECTED",
+    payload: region
+  };
+};
