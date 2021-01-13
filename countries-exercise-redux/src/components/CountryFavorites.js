@@ -4,8 +4,6 @@ import { defavoriteCountry } from "../actions";
 
 const CountryFavorites = (props) => {
 
-  console.log(props);
-
   const renderFavorites = () => {
     return props.favoriteCountries.map((country) => {
       return (

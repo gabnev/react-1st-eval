@@ -1,4 +1,5 @@
 import restCountries from "../apis/restCountries";
+import restCountry from "../apis/restCountry";
 
 export const fetchCountries = (region) => {
 
@@ -11,6 +12,15 @@ export const fetchCountries = (region) => {
     });
   };
 
+};
+
+export const fetchCountry = (country) => {
+
+  return async (dispatch) => {
+    const response = await restCountry.get(`${country}`)
+
+    dispatch({ type: "FETCH_COUNTRY", payload: response.data})
+  };
 };
 
 export const selectCountry = (country) => {

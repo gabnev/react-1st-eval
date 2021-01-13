@@ -14,9 +14,6 @@ const App = () => {
           <div className="eight wide column">
             <RegionSelect />
           </div>
-          <div className="eight wide column">
-            <CountrySearch />
-          </div>
         </div>
         <div className="ui row">
           <div className="eight wide column">

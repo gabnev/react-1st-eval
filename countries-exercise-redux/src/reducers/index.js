@@ -1,13 +1,5 @@
 import { combineReducers } from "redux";
 
-const countriesReducer = () => {
-  return [
-    { name: "Brasil", region: "americas" },
-    { name: "Portugal", region: "europe" },
-    { name: "Japan", region: "asia" }
-  ];
-};
-
 const regionReducer = () => {
   return [
     { id: 0, region: "" },
@@ -46,6 +38,15 @@ const countriesListReducer = (state = null, action) => {
   }
 }
 
+const countrySearchReducer = (state = null, action) => {
+  switch(action.type) {
+    case "FETCH_COUNTRY":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 const favorite = [];
 
 const favoriteCountriesReducer = (state = favorite, action) => {
@@ -60,10 +61,10 @@ const favoriteCountriesReducer = (state = favorite, action) => {
 }
 
 export default combineReducers({
-  countries: countriesReducer,
-  selectedCountry: selectedCountryReducer,
-  region: regionReducer,
-  selectedRegion: selectedRegionReducer,
   countriesList: countriesListReducer,
-  favoriteCountries: favoriteCountriesReducer
+  countrySearch: countrySearchReducer,
+  favoriteCountries: favoriteCountriesReducer,
+  region: regionReducer,
+  selectedCountry: selectedCountryReducer,
+  selectedRegion: selectedRegionReducer
 });
