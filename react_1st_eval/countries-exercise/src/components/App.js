@@ -20,7 +20,9 @@ const App = () => {
 
   const receiveSelectedCountries = async (selectedCountry) => {
 
-    if (selectedCountry.length !== 0) {
+    console.log("selected country ", selectedCountry);
+
+    if (selectedCountry !== "") {
       const response = await restSelectedCountries.get(`${selectedCountry}`);
   
       setCheckedCountries(response.data);
@@ -28,8 +30,7 @@ const App = () => {
       setCheckedCountries({});
     }
 
-    console.log(checkedCountries);
-    
+    console.log("checked countries ", checkedCountries);
   }
 
 

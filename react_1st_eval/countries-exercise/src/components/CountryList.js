@@ -3,18 +3,21 @@ import React from "react";
 
 const CountryList = (props) => {
 
-  let checkedCountries = [];
+  let checkedCountries = "";
 
   const handleChange = (event) => {
 
-    let checked = event.target.checked;
+    
+    // let checked = event.target.checked;
+    
+    let country = event.target.innerText;
 
-    let country = event.target.value;
+    console.log(country)
 
-    if (checked) {
-      checkedCountries = [...checkedCountries, country];
-    } else if (!checked) {
-      checkedCountries = checkedCountries.filter((item) => item !== country);
+    if (checkedCountries === "") {
+      checkedCountries = country;
+    } else if ( checkedCountries !== "") {
+      checkedCountries = "";
     }
   }
 
@@ -29,27 +32,27 @@ const CountryList = (props) => {
           className=""
           key={item.name}
         >
-          <input
-            type="checkbox"
+          <p
             value={item.name}
-            onChange={handleChange}
+            onClick={handleChange}
             data-country={item.name}
-          />
-          <label>{item.name}</label>
+          >
+          {item.name}
+          </p>
         </div>
       );
     });
   }
 
-  return (
-    <div
-      id="list"
-      className=""
-      onChange={returnCheckedCountries}
-    >
-      {renderList()}
-    </div>
-  );
+return (
+  <div
+    id="list"
+    className=""
+    onClick={returnCheckedCountries}
+  >
+    {renderList()}
+  </div>
+);
 }
 
 export default CountryList;
