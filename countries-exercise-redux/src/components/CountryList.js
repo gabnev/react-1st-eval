@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { selectCountry } from "../actions";
 import { favoriteCountry } from "../actions";
@@ -7,20 +7,27 @@ import CountrySearch from "./CountrySearch";
 
 const CountryList = (props) => {
 
+  const [term, setTerm] = useState("");
+
   useEffect(() => {
     if (props.selectedRegion !== null) {
       props.fetchCountries(props.selectedRegion);
     }
   }, [props.selectedRegion])
 
+  const searchMain = (country) => {
+    setTerm(country);
+  }
+
   const renderList = () => {
 
-    if (props.countriesList !== null) {
-
+    console.log("favorites:", props.favoriteCountries);
+    const favoriteList = props.favoriteCountries;
+    
+    if (props.countriesList !== null && term === "") {
       return props.countriesList.map((country) => {
-
-        if (country.region.toLowerCase() === props.selectedRegion.toLowerCase()) {
-
+        
+        if (favoriteList.includes(country)) {
           return (
             <div className="item" key={country.name}>
               <div className="right floated content">
@@ -30,6 +37,22 @@ const CountryList = (props) => {
                 >
                   Details
                 </button>
+              </div>
+              <div className="content">
+                <p>{country.name}</p>
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="item" key={country.name}>
+              <div className="right floated content">
+                <button
+                  className="ui button primary"
+                  onClick={() => props.selectCountry(country)}
+                >
+                  Details
+                </button>         
                 <button
                   className="ui button primary"
                   onClick={() => props.favoriteCountry(country)}
@@ -43,27 +66,77 @@ const CountryList = (props) => {
             </div>
           );
         }
+
+        
       });
 
+    } else if (props.countriesList !== null && term !== "") {
+      return props.countriesList.map((country) => {
+
+        if (favoriteList.includes(country)) {
+          if (country.name.toLowerCase().includes(term)) {
+            return (
+              <div className="item" key={country.name}>
+                <div className="right floated content">
+                  <button
+                    className="ui button primary"
+                    onClick={() => props.selectCountry(country)}
+                  >
+                    Details
+                  </button>
+                </div>
+                <div className="content">
+                  <p>{country.name}</p>
+                </div>
+              </div>
+            );
+          }
+        } else {
+          if (country.name.toLowerCase().includes(term)) {
+            return (
+              <div className="item" key={country.name}>
+                <div className="right floated content">
+                  <button
+                    className="ui button primary"
+                    onClick={() => props.selectCountry(country)}
+                  >
+                    Details
+                  </button>
+                  <button
+                    className="ui button primary"
+                    onClick={() => props.favoriteCountry(country)}
+                  >
+                    Favorite
+                  </button>
+                </div>
+                <div className="content">
+                  <p>{country.name}</p>
+                </div>
+              </div>
+            );
+          }
+        }
+
+        
+      });
     }
   }
 
   return (
     <div>
       <div className="ui segment">
-        <CountrySearch />
-        <div className="ui divided list">{renderList()}</div>
+        <CountrySearch searchTerm={searchMain} />
       </div>
+      <div className="ui divided list" >{renderList()}</div>
     </div>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    countries: state.countries,
     selectedRegion: state.selectedRegion,
     countriesList: state.countriesList,
-    favoriteCountry: state.favoriteCountry
+    favoriteCountries: state.favoriteCountries
   };
 }
 

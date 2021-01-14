@@ -5,7 +5,8 @@ import { selectRegion } from "../actions";
 const RegionSelect = (props) => {
 
   const renderForm = () => {
-    return props.region.map((option) => {
+
+    return props.regions.map((option) => {
       return (
         <option
           key={option.id}

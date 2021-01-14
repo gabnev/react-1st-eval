@@ -1,16 +1,5 @@
 import { combineReducers } from "redux";
 
-const regionReducer = () => {
-  return [
-    { id: 0, region: "" },
-    { id: 1, region: "africa" },
-    { id: 2, region: "americas" },
-    { id: 3, region: "asia" },
-    { id: 4, region: "europe" },
-    { id: 5, region: "oceania" },
-  ]
-};
-
 const selectedCountryReducer = (state = null, action) => {
   switch (action.type) {
     case "COUNTRY_SELECTED":
@@ -64,7 +53,6 @@ export default combineReducers({
   countriesList: countriesListReducer,
   countrySearch: countrySearchReducer,
   favoriteCountries: favoriteCountriesReducer,
-  region: regionReducer,
   selectedCountry: selectedCountryReducer,
   selectedRegion: selectedRegionReducer
 });
