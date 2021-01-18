@@ -1,18 +1,20 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const CountryDetail = ({selectedCountry}) => {
+const CountryDetail = () => {
+
+  const details = useSelector(state => state.selectedCountry);
 
   const renderDetails = () => {
-    if (selectedCountry !== null) {
+    if (details !== null) {
       return (
         <div>
-          <h2>Name: {selectedCountry.name}</h2>
-          <p>Region: {selectedCountry.region}</p>
+          <h2>Name: {details.name}</h2>
+          <p>Region: {details.region}</p>
         </div>
       );
     };
-  }
+  };
 
   return (
     <div className="ui segment">
@@ -22,8 +24,4 @@ const CountryDetail = ({selectedCountry}) => {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { selectedCountry: state.selectedCountry }
-}
-
-export default connect(mapStateToProps)(CountryDetail);
+export default CountryDetail;

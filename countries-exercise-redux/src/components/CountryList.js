@@ -13,6 +13,8 @@ const CountryList = (props) => {
     if (props.selectedRegion !== null) {
       props.fetchCountries(props.selectedRegion);
     }
+
+  // this is rendering twice!
   }, [props.selectedRegion])
 
   const searchMain = (country) => {
@@ -20,14 +22,12 @@ const CountryList = (props) => {
   }
 
   const renderList = () => {
-
-    console.log("favorites:", props.favoriteCountries);
     const favoriteList = props.favoriteCountries;
-    
-    if (props.countriesList !== null && term === "") {
+
+    if (props.countriesList !== null) {
+      // eslint-disable-next-line array-callback-return
       return props.countriesList.map((country) => {
-        
-        if (favoriteList.includes(country)) {
+        if (term === "" || country.name.toLowerCase().includes(term)) {          
           return (
             <div className="item" key={country.name}>
               <div className="right floated content">
@@ -37,87 +37,20 @@ const CountryList = (props) => {
                 >
                   Details
                 </button>
-              </div>
-              <div className="content">
-                <p>{country.name}</p>
-              </div>
-            </div>
-          );
-        } else {
-          return (
-            <div className="item" key={country.name}>
-              <div className="right floated content">
-                <button
-                  className="ui button primary"
-                  onClick={() => props.selectCountry(country)}
-                >
-                  Details
-                </button>         
-                <button
+                {!favoriteList.includes(country) && <button
                   className="ui button primary"
                   onClick={() => props.favoriteCountry(country)}
                 >
                   Favorite
-                </button>
+                </button>}
               </div>
               <div className="content">
                 <p>{country.name}</p>
               </div>
             </div>
           );
+
         }
-
-        
-      });
-
-    } else if (props.countriesList !== null && term !== "") {
-      return props.countriesList.map((country) => {
-
-        if (favoriteList.includes(country)) {
-          if (country.name.toLowerCase().includes(term)) {
-            return (
-              <div className="item" key={country.name}>
-                <div className="right floated content">
-                  <button
-                    className="ui button primary"
-                    onClick={() => props.selectCountry(country)}
-                  >
-                    Details
-                  </button>
-                </div>
-                <div className="content">
-                  <p>{country.name}</p>
-                </div>
-              </div>
-            );
-          }
-        } else {
-          if (country.name.toLowerCase().includes(term)) {
-            return (
-              <div className="item" key={country.name}>
-                <div className="right floated content">
-                  <button
-                    className="ui button primary"
-                    onClick={() => props.selectCountry(country)}
-                  >
-                    Details
-                  </button>
-                  <button
-                    className="ui button primary"
-                    onClick={() => props.favoriteCountry(country)}
-                  >
-                    Favorite
-                  </button>
-                </div>
-                <div className="content">
-                  <p>{country.name}</p>
-                </div>
-              </div>
-            );
-          }
-        }
-
-        
       });
     }
   }

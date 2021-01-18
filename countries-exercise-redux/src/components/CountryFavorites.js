@@ -1,38 +1,38 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { defavoriteCountry, selectCountry } from "../actions";
 import CountrySearch from "./CountrySearch";
 
-const CountryFavorites = (props) => {
+const CountryFavorites = () => {
 
   const [term, setTerm] = useState("");
 
-  const renderFavorites = () => {
+  const favorite = useSelector(state => state.favoriteCountries);
+  const dispatch = useDispatch();
 
-    
+  const renderFavorites = () => {    
 
     if (term === "") {
-      return props.favoriteCountries.map((country) => {
-
+      return favorite.map((country) => {
         return (
           <div key={country.name}>
             <h4>
               {country.name}
-              <i className="window maximize outline icon green" floated="right" onClick={() => props.selectCountry(country)}></i>
-              <i className="window close icon red" floated="right" onClick={() => props.defavoriteCountry(country)}></i>
+              <i className="window maximize outline icon green" floated="right" onClick={() => dispatch(selectCountry(country))}></i>
+              <i className="window close icon red" floated="right" onClick={() => dispatch(defavoriteCountry(country))}></i>
             </h4>
           </div>
         );
       });
-    } else if (term !== "") {
-      return props.favoriteCountries.map((country) => {
+    } else {
+      return favorite.map((country) => {
         if (country.name.toLowerCase().includes(term))
           return (
             <div key={country.name}>
               <h4>
                 {country.name}
-                <i className="window maximize outline icon green" floated="right" onClick={() => props.selectCountry(country)}></i>
-                <i className="window close icon red" floated="right" onClick={() => props.defavoriteCountry(country)}></i>
+                <i className="window maximize outline icon green" floated="right" onClick={() => dispatch(selectCountry(country))}></i>
+                <i className="window close icon red" floated="right" onClick={() => dispatch(defavoriteCountry(country))}></i>
               </h4>
             </div>
           );
@@ -58,11 +58,16 @@ const CountryFavorites = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
+export default CountryFavorites;
 
-  return {
-    favoriteCountries: state.favoriteCountries
-  }
-}
 
-export default connect(mapStateToProps, { defavoriteCountry, selectCountry })(CountryFavorites);
+
+
+// const mapStateToProps = (state) => {
+
+//   return {
+//     favoriteCountries: state.favoriteCountries
+//   }
+// }
+
+// export default connect(mapStateToProps, { defavoriteCountry, selectCountry })(CountryFavorites);

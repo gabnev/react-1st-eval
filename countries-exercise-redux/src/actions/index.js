@@ -11,7 +11,6 @@ export const fetchCountries = (region) => {
       payload: response.data
     });
   };
-
 };
 
 export const fetchCountry = (country) => {

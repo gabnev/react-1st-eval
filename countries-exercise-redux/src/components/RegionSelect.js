@@ -1,11 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { selectRegion } from "../actions";
 
 const RegionSelect = (props) => {
 
-  const renderForm = () => {
+  const dispatch = useDispatch();
 
+  const renderForm = () => {
     return props.regions.map((option) => {
       return (
         <option
@@ -14,27 +15,25 @@ const RegionSelect = (props) => {
         >
           {option.region}
         </option>
-      )
-    })
-  }
+      );
+    });
+  };
 
   return (
     <div className="ui segment">
       <h3>
         SELECT REGION
       </h3>
-      <select onChange={(event) => props.selectRegion(event.target.value)} >
+      <select onChange={(event) => dispatch(selectRegion(event.target.value))} >
         {renderForm()}
       </select>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
-  return { region: state.region };
-}
+export default RegionSelect;
 
-export default connect(
-  mapStateToProps,
-  { selectRegion: selectRegion }
-)(RegionSelect);
+// export default connect(
+//   null,
+//   { selectRegion }
+// )(RegionSelect);
