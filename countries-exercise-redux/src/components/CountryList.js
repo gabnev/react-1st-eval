@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCountry } from "../actions";
 import { favoriteCountry } from "../actions";
 import { fetchCountries } from "../actions";
@@ -9,37 +9,40 @@ const CountryList = (props) => {
 
   const [term, setTerm] = useState("");
 
-  useEffect(() => {
-    if (props.selectedRegion !== null) {
-      props.fetchCountries(props.selectedRegion);
-    }
+  const region = useSelector(state => state.selectedRegion);
+  const countries = useSelector(state => state.countriesList);
+  const favorites = useSelector(state => state.favoriteCountries);
+  const dispatch = useDispatch();  
 
-  // this is rendering twice!
-  }, [props.selectedRegion])
+  useEffect(() => {
+    if (region !== null) {
+      dispatch(fetchCountries(region));
+    }
+  }, [dispatch, region])
 
   const searchMain = (country) => {
     setTerm(country);
   }
 
   const renderList = () => {
-    const favoriteList = props.favoriteCountries;
+    const favoriteList = favorites;
 
-    if (props.countriesList !== null) {
+    if (countries !== null) {
       // eslint-disable-next-line array-callback-return
-      return props.countriesList.map((country) => {
+      return countries.map((country) => {
         if (term === "" || country.name.toLowerCase().includes(term)) {          
           return (
             <div className="item" key={country.name}>
               <div className="right floated content">
                 <button
                   className="ui button primary"
-                  onClick={() => props.selectCountry(country)}
+                  onClick={() => dispatch(selectCountry(country))}
                 >
                   Details
                 </button>
                 {!favoriteList.includes(country) && <button
                   className="ui button primary"
-                  onClick={() => props.favoriteCountry(country)}
+                  onClick={() => dispatch(favoriteCountry(country))}
                 >
                   Favorite
                 </button>}
@@ -65,19 +68,21 @@ const CountryList = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    selectedRegion: state.selectedRegion,
-    countriesList: state.countriesList,
-    favoriteCountries: state.favoriteCountries
-  };
-}
+export default CountryList;
 
-export default connect(
-  mapStateToProps,
-  {
-    selectCountry: selectCountry,
-    fetchCountries: fetchCountries,
-    favoriteCountry: favoriteCountry
-  }
-)(CountryList);
+// const mapStateToProps = (state) => {
+//   return {
+//     selectedRegion: state.selectedRegion,
+//     countriesList: state.countriesList,
+//     favoriteCountries: state.favoriteCountries
+//   };
+// }
+
+// export default connect(
+//   mapStateToProps,
+//   {
+//     selectCountry: selectCountry,
+//     fetchCountries: fetchCountries,
+//     favoriteCountry: favoriteCountry
+//   }
+// )(CountryList);
